@@ -1,4 +1,4 @@
-# Auth spa
+# auth
 
 ## Project setup
 ```
