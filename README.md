@@ -1,4 +1,4 @@
-# amazon-bot-spa
+# Auth spa
 
 ## Project setup
 ```
