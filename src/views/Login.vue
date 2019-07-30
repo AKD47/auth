@@ -22,11 +22,12 @@
 </template>
 
 <script>
+
     export default {
         name: "login",
         data() {
             return {
-                code: ''
+                code: '',
             }
         },
         mounted() {
@@ -39,23 +40,21 @@
                 this.$router.replace({
                     query: {
                         username: this.$username,
-                        token: this.$token }
+                        token: this.$token
+                    }
                 });
             },
             login: function (event) {
                 let router = this.$router;
-                let username = this.$username;
-                let token = this.$token;
                 let code = this.code;
-                console.log(username);
-                console.log(code);
-                this.$http.post(`/login?username=${username}?token=${token}?code=${code}`, {
-                    username: this.username,
-                    token: this.token,
-                    code: this.code,
+                this.$http.post(`/status`, {
+                    username: this.$username,
+                    code: code,
                 }).then((response) => {
                     console.log(response.data);
-                    router.push({path: '/'});
+                    localStorage.setItem('traffic', response.data.traffic);
+                    localStorage.setItem('minutes', response.data.minutes);
+                    router.push({ path: '/' });
                 }).catch((error) => {
                     console.log(error);
                     if (error.request.status ===  0 ) {
@@ -69,7 +68,7 @@
                         this.$notify.error({
                             showClose: true,
                             title: 'Error',
-                            message: 'Код указан не верно!'
+                            message: 'Код указан не верно! Правильный код "russ"'
                         });
                     }
                 });

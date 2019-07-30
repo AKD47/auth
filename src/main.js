@@ -4,7 +4,6 @@ import router from './router'
 import axios from 'axios';
 import BootstrapVue from 'bootstrap-vue';
 import ElementUI from 'element-ui';
-import { Loading } from 'element-ui';
 import { Notification } from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 
@@ -15,7 +14,7 @@ const USERNAME = process.env.FRONT_END_TOKEN || 'leman';
 Vue.prototype.$username = USERNAME;
 
 Vue.use(BootstrapVue);
-Vue.use(ElementUI, Loading, Notification);
+Vue.use(ElementUI, Notification);
 
 axios.defaults.baseURL = 'http://localhost:5000';
 axios.defaults.headers.common['Content-Type'] = 'application/json';
