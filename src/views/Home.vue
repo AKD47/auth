@@ -40,6 +40,7 @@
                 let router = this.$router;
                 localStorage.removeItem('token');
                 localStorage.removeItem('traffic');
+                localStorage.removeItem('minutes');
                 router.push({ path: '/login'})
             },
         }

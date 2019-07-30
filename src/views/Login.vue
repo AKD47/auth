@@ -51,7 +51,6 @@
                     username: this.$username,
                     code: code,
                 }).then((response) => {
-                    console.log(response.data);
                     localStorage.setItem('traffic', response.data.traffic);
                     localStorage.setItem('minutes', response.data.minutes);
                     router.push({ path: '/' });
