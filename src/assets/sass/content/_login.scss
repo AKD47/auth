@@ -1,0 +1,26 @@
+.login {
+  background: rgba(0,0,0,.6);
+  position: relative;
+  float: left;
+  width: 30%;
+  @include border-box;
+
+  @include breakpoint(max-width 770px) {
+    width: 60%;
+  }
+
+  @include breakpoint(max-width 660px) {
+    width: 70%;
+  }
+
+  &__bg {
+    background-image: url('assets/images/bg-baner-tablet.png');
+    background-repeat: no-repeat;
+    -webkit-background-size: cover;
+    background-size: cover;
+  }
+
+  &__label {
+    color: white;
+  }
+}
