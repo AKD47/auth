@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import App from './App.vue';
 import router from './router'
+import store from './store'
 import axios from 'axios';
 import BootstrapVue from 'bootstrap-vue';
 import ElementUI from 'element-ui';
@@ -13,6 +14,7 @@ Vue.prototype.$token = TOKEN;
 const USERNAME = process.env.FRONT_END_TOKEN || 'leman';
 Vue.prototype.$username = USERNAME;
 
+Vue.use(store);
 Vue.use(BootstrapVue);
 Vue.use(ElementUI, Notification);
 
@@ -27,5 +29,6 @@ Vue.config.productionTip = false;
 
 new Vue({
   router,
+  store,
   render: function (h) { return h(App) }
 }).$mount('#app');

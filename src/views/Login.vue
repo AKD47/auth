@@ -9,7 +9,7 @@
                         <input type="text" class="form-control" v-model="code"
                                autocomplete="off" id="code" name="code"
                                aria-describedby="emailHelp" placeholder="code">
-                    </div>                   
+                    </div>
                     <div class="mt-5">
                         <button class="btn btn-block btn-primary btn-lg font-weight-medium"
                                 type="submit">Вход
@@ -27,6 +27,7 @@
         name: "login",
         data() {
             return {
+                username: '',
                 code: '',
             }
         },
@@ -45,32 +46,53 @@
                 });
             },
             login: function (event) {
-                let router = this.$router;
+                // let router = this.$router;
+                let username = this.$username;
                 let code = this.code;
-                this.$http.post(`/status`, {
-                    username: this.$username,
-                    code: code,
-                }).then((response) => {
-                    localStorage.setItem('traffic', response.data.traffic);
-                    localStorage.setItem('minutes', response.data.minutes);
-                    router.push({ path: '/' });
+                this.$store.dispatch('login', { username, code }).then((response) => {
+                    console.log(response.data);
+                    this.$router.push({path: '/'})
                 }).catch((error) => {
                     console.log(error);
-                    if (error.request.status ===  0 ) {
-                        this.$notify.error({
-                            showClose: true,
-                            title: 'Error',
-                            message: 'Global network error!'
-                        });
-                    }
-                    if (error.response.status === 401) {
-                        this.$notify.error({
-                            showClose: true,
-                            title: 'Error',
-                            message: 'Код указан не верно! Правильный код "russ"'
-                        });
-                    }
+                        if (error.request.status ===  0 ) {
+                            this.$notify.error({
+                                showClose: true,
+                                title: 'Error',
+                                message: 'Global network error!'
+                            });
+                        }
+                        if (error.response.status === 401) {
+                            this.$notify.error({
+                                showClose: true,
+                                title: 'Error',
+                                message: 'Код указан не верно! Правильный код "russ"'
+                            });
+                        }
                 });
+                // this.$http.post(`/status`, {
+                //     username: this.$username,
+                //     code: code,
+                // }).then((response) => {
+                //     localStorage.setItem('traffic', response.data.traffic);
+                //     localStorage.setItem('minutes', response.data.minutes);
+                //     router.push({ path: '/' });
+                // }).catch((error) => {
+                //     console.log(error);
+                //     if (error.request.status ===  0 ) {
+                //         this.$notify.error({
+                //             showClose: true,
+                //             title: 'Error',
+                //             message: 'Global network error!'
+                //         });
+                //     }
+                //     if (error.response.status === 401) {
+                //         this.$notify.error({
+                //             showClose: true,
+                //             title: 'Error',
+                //             message: 'Код указан не верно! Правильный код "russ"'
+                //         });
+                //     }
+                // });
             }
         }
     }

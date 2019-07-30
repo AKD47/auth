@@ -1,4 +1,5 @@
 import Vue from 'vue';
+import store from './store'
 import Router from 'vue-router';
 import Login from './views/Login';
 import Home from './views/Home.vue';
@@ -28,16 +29,28 @@ const router = new Router({
 export default router;
 
 router.beforeEach((to, from, next) => {
-    if (to.matched.some(record => record.meta.requiresAuth)) {
-        if (!localStorage.getItem('token')) {
-            next({
-                path: '/login',
-                query: {redirect: to.fullPath}
-            });
-        } else {
+    if(to.matched.some(record => record.meta.requiresAuth)) {
+        if (store.getters.isLoggedIn) {
             next();
+            return
         }
+        next('/login')
     } else {
-        next();
+        next()
     }
 });
+
+// router.beforeEach((to, from, next) => {
+//     if (to.matched.some(record => record.meta.requiresAuth)) {
+//         if (!localStorage.getItem('token')) {
+//             next({
+//                 path: '/login',
+//                 query: {redirect: to.fullPath}
+//             });
+//         } else {
+//             next();
+//         }
+//     } else {
+//         next();
+//     }
+// });
