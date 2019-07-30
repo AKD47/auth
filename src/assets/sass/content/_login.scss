@@ -20,6 +20,16 @@
     background-size: cover;
   }
 
+  &__title {
+    position: relative;
+    float: left;
+    width: 100%;
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #fff;
+    text-align: center;
+  }
+
   &__label {
     color: white;
   }

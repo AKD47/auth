@@ -2,24 +2,17 @@
     <div class="d-flex flex-wrap justify-content-center h-100 login__bg">
         <div class="content-wrapper d-flex justify-content-center align-items-center w-100">
             <section class="login p-5">
-                <form @submit.prevent="" autocomplete="off">
+                <form @submit.prevent="login" autocomplete="off">
                     <div class="form-group">
-                        <label class="login__label" for="username">Username</label>
-                        <input type="text" class="form-control" v-model="username"
-                               autocomplete="off" id="username" name="username"
-                               aria-describedby="emailHelp" placeholder="Username">
-                        <i class="mdi mdi-account"></i>
-                    </div>
-                    <div class="form-group">
-                        <label class="login__label" for="password">Password</label>
-                        <input type="password" class="form-control" v-model="password"
-                               name="new-password" autocomplete="off" id="password"
-                               placeholder="Password">
-                        <i @click="showPass" class="mdi mdi-eye"></i>
-                    </div>
+                        <h3 class="login__title">Привет, {{this.$username}}!</h3>
+                        <label class="login__label" for="code">Введи код для продолжения</label>
+                        <input type="text" class="form-control" v-model="code"
+                               autocomplete="off" id="code" name="code"
+                               aria-describedby="emailHelp" placeholder="code">
+                    </div>                   
                     <div class="mt-5">
                         <button class="btn btn-block btn-primary btn-lg font-weight-medium"
-                                type="submit">Login
+                                type="submit">Вход
                         </button>
                     </div>
                 </form>
@@ -33,11 +26,55 @@
         name: "login",
         data() {
             return {
-                username: '',
-                token: ''
+                code: ''
             }
         },
-        methods: {}
+        mounted() {
+            this.qwertyParams();
+        },
+        methods: {
+            qwertyParams: function () {
+                let token = this.$token;
+                localStorage.setItem('token', token);
+                this.$router.replace({
+                    query: {
+                        username: this.$username,
+                        token: this.$token }
+                });
+            },
+            login: function (event) {
+                let router = this.$router;
+                let username = this.$username;
+                let token = this.$token;
+                let code = this.code;
+                console.log(username);
+                console.log(code);
+                this.$http.post(`/login?username=${username}?token=${token}?code=${code}`, {
+                    username: this.username,
+                    token: this.token,
+                    code: this.code,
+                }).then((response) => {
+                    console.log(response.data);
+                    router.push({path: '/'});
+                }).catch((error) => {
+                    console.log(error);
+                    if (error.request.status ===  0 ) {
+                        this.$notify.error({
+                            showClose: true,
+                            title: 'Error',
+                            message: 'Global network error!'
+                        });
+                    }
+                    if (error.response.status === 401) {
+                        this.$notify.error({
+                            showClose: true,
+                            title: 'Error',
+                            message: 'Код указан не верно!'
+                        });
+                    }
+                });
+            }
+        }
     }
 </script>
 
