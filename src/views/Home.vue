@@ -3,10 +3,10 @@
         <div class="content-wrapper d-flex justify-content-center align-items-center w-100">
             <section class="login p-5">
                 <div class="form-group">
-                    <p class="login__label">Интернет активен в течение {{this.minutes}} минут</p>
+                    <p class="login__label">Интернет активен в течение <span>{{this.minutes}}</span>  минут</p>
                 </div>
                 <div class="form-group">
-                    <p class="login__label">Доступно {{this.traffic}} трафика для загрузки</p>
+                    <p class="login__label">Доступно <span>{{this.traffic}}</span> трафика для загрузки</p>
                 </div>
                 <div class="mt-5">
                     <button class="btn btn-block btn-primary btn-lg font-weight-medium"
