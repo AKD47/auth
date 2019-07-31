@@ -1,28 +1,30 @@
-# auth
+# Простая форма входа
 
-## Project setup
+## установка проекта
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
+### Компиляция и горячая перезагрузка для разработки
 ```
 npm run serve
 ```
 
-### Compiles and minifies for production
+### Компиляция и минификация для production
 ```
 npm run build
 ```
 
-### Run your tests
+## Установка тестового бекэнда
 ```
-npm run test
+cd back-end 
+npm install
 ```
 
-### Lints and fixes files
+### Запуск тестового сервера
 ```
-npm run lint
+cd back-end 
+node app.js
 ```
 
 ### Customize configuration
