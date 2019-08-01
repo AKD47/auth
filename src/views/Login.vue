@@ -51,7 +51,6 @@
         },
         methods: {
             qwertyParams: function () {
-
                 this.$router.push({
                     query: {
                         username: this.$username,
