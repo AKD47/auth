@@ -32,7 +32,10 @@ router.beforeEach((to, from, next) => {
         if (!localStorage.getItem('token')) {
             next({
                 path: '/login',
-                query: {redirect: to.fullPath}
+                query: {
+                    username: Vue.prototype.$username,
+                    token: Vue.prototype.$token
+                }
             });
         } else {
             next();

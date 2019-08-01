@@ -41,7 +41,12 @@
                 localStorage.removeItem('token');
                 localStorage.removeItem('traffic');
                 localStorage.removeItem('minutes');
-                router.push({ path: '/login'})
+                router.push({
+                    path: '/login',
+                    query: {
+                        username: this.$username,
+                        token: this.$token
+                    }});
             },
         }
     }
