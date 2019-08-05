@@ -33,15 +33,25 @@
         },
         methods: {
             loadTimeData: function () {
-                this.traffic = localStorage.getItem('traffic');
-                this.minutes = localStorage.getItem('minutes');
+                this.traffic = this.$store.state.data.traffic;
+                this.minutes = this.$store.state.data.minutes;
+                // console.log(this.$store.state.data.traffic);
+                // console.log(this.$store.state.data.minutes);
             },
             logout: function () {
                 let router = this.$router;
                 localStorage.removeItem('token');
-                localStorage.removeItem('traffic');
-                localStorage.removeItem('minutes');
-                router.push({ path: '/login'})
+                // localStorage.removeItem('traffic');
+                // localStorage.removeItem('minutes');
+                router.push({
+                    path: '/login',
+                    query: {
+                        query: {
+                            username: this.$username,
+                            token: this.$token
+                        }
+                    }
+                })
             },
         }
     }

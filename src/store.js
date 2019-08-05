@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import axios from 'axios';
+// import axios from 'axios';
 
 Vue.use(Vuex);
 // axios.defaults.baseURL = 'http://localhost:5000';
@@ -10,6 +10,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
     state: {
         status: '',
+        token: localStorage.getItem('token') || '',
         user: {
             username: '',
             code: ''
@@ -34,25 +35,19 @@ export default new Vuex.Store({
         },
         logout(state){
             state.status = '';
-            // state.token = '';
+            state.token = '';
         },
     },
     actions: {
         login({commit}, user) {
             return new Promise((resolve, reject) => {
                 commit('auth_request');
-                console.log(user);
+                // console.log(user);
                 // console.log(this.data);
-                axios.post('/status', user).then((response) => {
-                    console.log(response.data.traffic);
-                    console.log(response.data.minutes);
+                Vue.prototype.$http.post('/status', user).then((response) => {
                     this.state.data.traffic = response.data.traffic;
                     this.state.data.minutes = response.data.minutes;
-                    console.log(this.state.data);
-                    // timeData.traffic = response.data.traffic;
-                    // timeData.minutes = response.data.minutes;
-                    localStorage.setItem('traffic', response.data.traffic);
-                    localStorage.setItem('minutes', response.data.minutes);
+                    localStorage.getItem('token', Vue.prototype.$token);
                     commit('auth_success', user);
                     resolve(response);
                 }).catch((error) => {
@@ -72,7 +67,7 @@ export default new Vuex.Store({
         }
     },
     getters : {
-        // isLoggedIn: state => !!state.token,
+        isLoggedIn: state => !!state.token,
         authStatus: state => state.status,
     }
 })

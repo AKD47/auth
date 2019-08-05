@@ -31,26 +31,19 @@ export default router;
 router.beforeEach((to, from, next) => {
     if(to.matched.some(record => record.meta.requiresAuth)) {
         if (store.getters.isLoggedIn) {
+            next({
+                path: '/login',
+                query: {
+                    query: {
+                        username: Vue.prototype.$username,
+                        token: Vue.prototype.$token
+                    }
+                }
+            });
+        } else {
             next();
-            return
         }
-        next('/login')
     } else {
         next()
     }
 });
-
-// router.beforeEach((to, from, next) => {
-//     if (to.matched.some(record => record.meta.requiresAuth)) {
-//         if (!localStorage.getItem('token')) {
-//             next({
-//                 path: '/login',
-//                 query: {redirect: to.fullPath}
-//             });
-//         } else {
-//             next();
-//         }
-//     } else {
-//         next();
-//     }
-// });

@@ -46,12 +46,13 @@
                 });
             },
             login: function (event) {
-                // let router = this.$router;
+                let router = this.$router;
                 let username = this.$username;
                 let code = this.code;
                 this.$store.dispatch('login', { username, code }).then((response) => {
-                    console.log(response.data);
-                    this.$router.push({path: '/'})
+                    // console.log(response.data);
+                    // console.log(router.push({ path: '/' }));
+                    router.push({ path: '/' })
                 }).catch((error) => {
                     console.log(error);
                         if (error.request.status ===  0 ) {
